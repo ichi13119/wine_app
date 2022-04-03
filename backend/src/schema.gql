@@ -1,0 +1,45 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type PostModel {
+  acidity: String
+  alcohol: Int
+  area: String
+  astringency: String
+  body: TypeModel
+  breed: String
+  color: String
+  comments: [String]
+  conbination: String
+  country: String
+  date: Int
+  flavor: String
+  fragrance: String
+  id: ID!
+  impression: String
+  sweetness: TypeModel
+  taste: TypeModel
+  title: String!
+  type: TypeModel!
+  year: Int
+}
+
+type Query {
+  posts: [PostModel]
+  users: [UserModel]
+}
+
+type TypeModel {
+  id: ID!
+  name: String!
+}
+
+type UserModel {
+  email: String!
+  id: ID!
+  likes: [ID]
+  name: String!
+  password: String!
+  posts: [ID]
+}
