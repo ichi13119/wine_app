@@ -1,5 +1,6 @@
 import { Field, ObjectType, ID, Int, Float } from '@nestjs/graphql';
 
+import { CommentsModel } from './comments.model';
 import { TypeModel } from './type.model';
 
 @ObjectType()
@@ -61,6 +62,6 @@ export class PostModel {
   @Field((type) => String, { nullable: true })
   conbination: string;
 
-  @Field((type) => [String], { nullable: 'itemsAndList' })
-  comments: [string];
+  @Field((type) => [CommentsModel], { nullable: 'itemsAndList' })
+  comments: [CommentsModel];
 }

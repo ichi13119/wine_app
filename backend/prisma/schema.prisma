@@ -1,0 +1,70 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+  email    String    @unique
+  password String
+  postIDs  String[]  @db.ObjectId
+  posts    Post[]    @relation(name: "UserPosts")
+  likes    Post[]    @relation(name: "UserLikes")
+  Comment  Comment[]
+}
+
+model Post {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  userId      String?   @db.ObjectId
+  typeId      String    @db.ObjectId
+  postUser    User?     @relation(name: "UserPosts", fields: [userId], references: [id])
+  likedUser   User?     @relation(name: "UserLikes", fields: [userId], references: [id])
+  title       String
+  kinds       Type      @relation(name: "kinds", fields: [typeId], references: [id])
+  breed       String
+  country     String
+  area        String
+  year        Int
+  sweetness   Type      @relation(name: "sweetness", fields: [typeId], references: [id])
+  acidity     String
+  astringency String
+  alcohol     Float
+  body        Type      @relation(name: "body", fields: [typeId], references: [id])
+  taste       Type      @relation(name: "taste", fields: [typeId], references: [id])
+  color       String
+  fragrance   String
+  flavor      String
+  impression  String
+  date        DateTime
+  conbination String
+  comments    Comment[]
+}
+
+model Type {
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  slug      String
+  type      String
+  kinds     Post[] @relation(name: "kinds")
+  sweetness Post[] @relation(name: "sweetness")
+  body      Post[] @relation("body")
+  taste     Post[] @relation("taste")
+}
+
+model Comment {
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  user     User     @relation(fields: [userId], references: [id])
+  userId   String   @db.ObjectId
+  comment  String
+  sendDate DateTime
+  Post     Post?    @relation(fields: [postId], references: [id])
+  postId   String?  @db.ObjectId
+}

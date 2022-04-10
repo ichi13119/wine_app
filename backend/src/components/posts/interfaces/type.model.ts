@@ -7,4 +7,10 @@ export class TypeModel {
 
   @Field((type) => String)
   name: string;
+
+  @Field((type) => String)
+  slug: string;
+
+  @Field((type) => String)
+  type: string;
 }
