@@ -1,5 +1,7 @@
 import { Field, ObjectType, ID } from '@nestjs/graphql';
 
+import { PostModel } from 'src/components/posts/interfaces/posts.model';
+
 @ObjectType()
 export class UserModel {
   @Field((type) => ID)
@@ -14,9 +16,9 @@ export class UserModel {
   @Field((type) => String)
   password: string;
 
-  @Field((type) => [ID], { nullable: 'itemsAndList' })
+  @Field((type) => [PostModel], { nullable: 'itemsAndList' })
   posts: string;
 
-  @Field((type) => [ID], { nullable: 'itemsAndList' })
+  @Field((type) => [PostModel], { nullable: 'itemsAndList' })
   likes: string;
 }
